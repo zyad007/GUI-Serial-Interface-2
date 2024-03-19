@@ -34,9 +34,23 @@ namespace GUI_Serial_Interface
             int y = int.Parse(data[1]);
             AddPointToChart(x, y);
         }
+        delegate void SetChartCallBack(int x, int y);
         private void AddPointToChart(int x, int y)
         {
-            chart1.Series["Series1"].Points.AddXY(x, y);
+            if(chart1.InvokeRequired)
+            {
+                var cb = new SetChartCallBack(AddPointToChart);
+                chart1.Invoke(cb, new Object[]
+                {
+                    x, y
+                });
+            }else
+            {
+                chart1.Series["Series1"].Points.AddXY(x, y);
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                Console.WriteLine("------------------");
+            }
         }
         void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
