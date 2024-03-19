@@ -19,11 +19,26 @@ namespace GUI_Serial_Interface
         {
             InitializeComponent();
             this.FormClosed += new FormClosedEventHandler(Form1_FormClosed);
-            if(port == null)
+            PopulateSerialPortList();
+        }
+        private void PopulateSerialPortList()
+        {
+            try
             {
-                port = new SerialPort("COM4", 9600);
-                port.DataReceived += port_DataRecieved;
-                port.Open();
+                string[] ports = SerialPort.GetPortNames();
+                listBox1.Items.Clear();
+                foreach (string port in ports)
+                {
+                    listBox1.Items.Add(port);
+                }
+                if (listBox1.Items.Count > 0)
+                {
+                    listBox1.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void port_DataRecieved(object sender, SerialDataReceivedEventArgs e)
@@ -60,5 +75,19 @@ namespace GUI_Serial_Interface
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PopulateSerialPortList();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (port == null)
+            {
+                port = new SerialPort("COM4", 9600);
+                port.DataReceived += port_DataRecieved;
+                port.Open();
+            }
+        }
     }
 }
