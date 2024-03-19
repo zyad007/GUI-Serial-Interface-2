@@ -29,7 +29,14 @@ namespace GUI_Serial_Interface
         private void port_DataRecieved(object sender, SerialDataReceivedEventArgs e)
         {
             String receivedData = port.ReadLine();
-            Console.WriteLine(receivedData);
+            String[] data = receivedData.Split(';');
+            int x = int.Parse(data[0]);
+            int y = int.Parse(data[1]);
+            AddPointToChart(x, y);
+        }
+        private void AddPointToChart(int x, int y)
+        {
+            chart1.Series["Series1"].Points.AddXY(x, y);
         }
         void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
