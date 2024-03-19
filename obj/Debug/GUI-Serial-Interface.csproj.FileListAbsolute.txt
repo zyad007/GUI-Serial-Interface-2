@@ -1,0 +1,10 @@
+E:\Work\solar\GUI-Serial-Interface\bin\Debug\GUI-Serial-Interface.exe.config
+E:\Work\solar\GUI-Serial-Interface\bin\Debug\GUI-Serial-Interface.exe
+E:\Work\solar\GUI-Serial-Interface\bin\Debug\GUI-Serial-Interface.pdb
+E:\Work\solar\GUI-Serial-Interface\obj\Debug\GUI-Serial-Interface.csproj.AssemblyReference.cache
+E:\Work\solar\GUI-Serial-Interface\obj\Debug\GUI_Serial_Interface.Form1.resources
+E:\Work\solar\GUI-Serial-Interface\obj\Debug\GUI_Serial_Interface.Properties.Resources.resources
+E:\Work\solar\GUI-Serial-Interface\obj\Debug\GUI-Serial-Interface.csproj.GenerateResource.cache
+E:\Work\solar\GUI-Serial-Interface\obj\Debug\GUI-Serial-Interface.csproj.CoreCompileInputs.cache
+E:\Work\solar\GUI-Serial-Interface\obj\Debug\GUI-Serial-Interface.exe
+E:\Work\solar\GUI-Serial-Interface\obj\Debug\GUI-Serial-Interface.pdb
