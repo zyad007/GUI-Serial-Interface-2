@@ -41,16 +41,33 @@ namespace GUI_Serial_Interface
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private float TrucatedValue(float value)
+        {
+            return (float) Math.Floor(value * 100f) / 100f;
+        }
+        private void UpdateTextField(string text)
+        {
+            if (textBox1.InvokeRequired)
+            {
+                textBox1.Invoke(new Action<string>(UpdateTextField), text);
+            }
+            else
+            {
+                textBox1.Text = text;
+            }
+        }
         private void port_DataRecieved(object sender, SerialDataReceivedEventArgs e)
         {
             String receivedData = port.ReadLine();
             String[] data = receivedData.Split(';');
-            int x = int.Parse(data[0]);
-            int y = int.Parse(data[1]);
-            AddPointToChart(x, y);
+            Console.WriteLine(receivedData);
+            float x = float.Parse(data[0]);
+            float y = float.Parse(data[1]);
+            UpdateTextField(data[2]);
+            AddPointToChart(TrucatedValue(x), TrucatedValue(y));
         }
-        delegate void SetChartCallBack(int x, int y);
-        private void AddPointToChart(int x, int y)
+        delegate void SetChartCallBack(float x, float y);
+        private void AddPointToChart(float x, float y)
         {
             if(chart1.InvokeRequired)
             {
@@ -61,10 +78,8 @@ namespace GUI_Serial_Interface
                 });
             }else
             {
-                chart1.Series["Series1"].Points.AddXY(x, y);
-                Console.WriteLine(x);
-                Console.WriteLine(y);
-                Console.WriteLine("------------------");
+                chart1.Series["Current(mA)"].Points.AddXY(x, y);
+                chart2.Series["Power(W)"].Points.AddXY(x, x * y * 0.001);
             }
         }
         void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -84,10 +99,20 @@ namespace GUI_Serial_Interface
         {
             if (port == null)
             {
-                port = new SerialPort("COM4", 9600);
+                port = new SerialPort("COM3", 9600);
                 port.DataReceived += port_DataRecieved;
                 port.Open();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            port.WriteLine("a");
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
