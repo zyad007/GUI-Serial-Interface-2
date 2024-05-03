@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,18 @@ namespace GUI_Serial_Interface
     public partial class Form1 : Form
     {
         SerialPort port;
+
+        private float maxI = 0;
+        private float maxV = 0;
+
+        private List<float> iBuffer;
+        private List<float> vBuffer;
+        private List<double> pBuffer;
+        private List<float> tempretureBuffer;
+        private List<float> fBuffer;
+
+        private string csvFilePath;
+
         public Form1()
         {
             InitializeComponent();
@@ -63,8 +76,15 @@ namespace GUI_Serial_Interface
             Console.WriteLine(receivedData);
             float x = float.Parse(data[0]);
             float y = float.Parse(data[1]);
-            UpdateTextField(data[2]);
+            float temp = float.Parse(data[2]);
+            UpdateTextField(temp+"");
             AddPointToChart(TrucatedValue(x), TrucatedValue(y));
+
+            iBuffer.Add(x);
+            vBuffer.Add(y);
+            pBuffer.Add(x * y * 0.001);
+            tempretureBuffer.Add(temp);
+            fBuffer.Add(0); // Add the F equation
         }
         delegate void SetChartCallBack(float x, float y);
         private void AddPointToChart(float x, float y)
@@ -78,7 +98,10 @@ namespace GUI_Serial_Interface
                 });
             }else
             {
-                chart1.Series["Current(mA)"].Points.AddXY(x, y);
+                if (x > maxI) maxI = x;
+                if (y > maxV) maxV = y;
+                
+                chart1.Series["Current(mA)"].Points.AddXY(x, y); //X(mA) /A(cm) 
                 chart2.Series["Power(W)"].Points.AddXY(x, x * y * 0.001);
             }
         }
@@ -113,6 +136,30 @@ namespace GUI_Serial_Interface
         private void chart1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ExportToCSV()
+        {
+
+            if(String.IsNullOrWhiteSpace(csvFilePath))
+            {
+                return;
+            }
+
+            var csv = new StringBuilder();
+
+            //Init Headers
+            csv.AppendLine("I,V,P,Tempreture, F");
+
+
+            var dataCount = iBuffer.Count;
+
+            for(int i = 0; i < dataCount; i++)
+            {
+                csv.AppendLine($"{iBuffer[i]}, {vBuffer[i]}, {pBuffer[i]}, {tempretureBuffer[i]}, {fBuffer[i]}");
+            }
+
+            File.WriteAllText(csvFilePath + "/Export.csv", csv.ToString());
         }
     }
 }
