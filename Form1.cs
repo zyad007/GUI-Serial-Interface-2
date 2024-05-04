@@ -23,6 +23,7 @@ namespace GUI_Serial_Interface
         private List<float> iBuffer = new List<float>();
         private List<float> vBuffer = new List<float>();
         private List<double> pBuffer = new List<double>();
+
         public Form1()
         {
             InitializeComponent();
@@ -126,6 +127,7 @@ namespace GUI_Serial_Interface
             }
             float x = float.Parse(data[0]);
             float y = float.Parse(data[1]);
+
             if(x > maxV)
             {
                 maxV = x;
@@ -142,7 +144,14 @@ namespace GUI_Serial_Interface
             vBuffer.Add(y);
             pBuffer.Add(x * y * 0.001);
             UpdateTextField(data[2]);
+
             AddPointToChart(TrucatedValue(x), TrucatedValue(y));
+
+            iBuffer.Add(x);
+            vBuffer.Add(y);
+            pBuffer.Add(x * y * 0.001);
+            tempretureBuffer.Add(temp);
+            fBuffer.Add(0); // Add the F equation
         }
         delegate void SetChartCallBack(float x, float y);
         private void AddPointToChart(float x, float y)
@@ -158,6 +167,7 @@ namespace GUI_Serial_Interface
             {
                 chart1.Series["c"].Points.AddXY(x, y/area);
                 chart2.Series["p"].Points.AddXY(x, x * y * 0.001);
+
             }
         }
         void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -224,6 +234,7 @@ namespace GUI_Serial_Interface
         {
 
             if (String.IsNullOrWhiteSpace(csvFilePath))
+
             {
                 return;
             }
@@ -233,11 +244,13 @@ namespace GUI_Serial_Interface
             csv.AppendLine("V,I,P");
 
 
+
             var dataCount = iBuffer.Count;
 
             for (int i = 0; i < dataCount; i++)
             {
                 csv.AppendLine($"{vBuffer[i]}, {iBuffer[i]}, {pBuffer[i]}");
+
             }
 
             File.WriteAllText(csvFilePath + "/Export.csv", csv.ToString());
