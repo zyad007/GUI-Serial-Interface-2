@@ -24,6 +24,8 @@ namespace GUI_Serial_Interface
         private List<float> vBuffer = new List<float>();
         private List<double> pBuffer = new List<double>();
 
+        private string selectedCOMM = "";
+
         public Form1()
         {
             InitializeComponent();
@@ -35,15 +37,17 @@ namespace GUI_Serial_Interface
         {
             try
             {
+                
                 string[] ports = SerialPort.GetPortNames();
-                listBox1.Items.Clear();
+                comboBox1.Items.Clear();
                 foreach (string port in ports)
                 {
-                    listBox1.Items.Add(port);
+                    comboBox1.Items.Add(port);
                 }
-                if (listBox1.Items.Count > 0)
+                if (comboBox1.Items.Count > 0)
                 {
-                    listBox1.SelectedIndex = 0;
+                    comboBox1.SelectedIndex = 0;
+                    selectedCOMM = comboBox1.SelectedText.Trim();
                 }
             }
             catch (Exception ex)
@@ -78,7 +82,7 @@ namespace GUI_Serial_Interface
             button5.Enabled = true;
             button6.Enabled = true;
             textBox1.Enabled = true;
-            listBox1.Enabled = true;
+            comboBox1.Enabled = true;
         }
         private void Running()
         {
@@ -90,7 +94,7 @@ namespace GUI_Serial_Interface
             button5.Enabled = false;
             button6.Enabled = false;
             textBox1.Enabled = false;
-            listBox1.Enabled = false;
+            comboBox1.Enabled = false;
         }
         private void Connected()
         {
@@ -100,12 +104,12 @@ namespace GUI_Serial_Interface
             button5.Enabled = true;
             button6.Enabled = false;
             textBox1.Enabled = true;
-            listBox1.Enabled = true;
+            comboBox1.Enabled = true;
         }
         private void NotConnected()
         {
             button2.Enabled = true;
-            listBox1.Enabled = true;
+            comboBox1.Enabled = true;
             button3.Enabled = false;
             button4.Enabled = false;
             button5.Enabled = false;
@@ -150,8 +154,6 @@ namespace GUI_Serial_Interface
             iBuffer.Add(x);
             vBuffer.Add(y);
             pBuffer.Add(x * y * 0.001);
-            tempretureBuffer.Add(temp);
-            fBuffer.Add(0); // Add the F equation
         }
         delegate void SetChartCallBack(float x, float y);
         private void AddPointToChart(float x, float y)
@@ -185,12 +187,19 @@ namespace GUI_Serial_Interface
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (port == null)
+            try
             {
-                port = new SerialPort("COM3", 9600);
-                port.DataReceived += port_DataRecieved;
-                port.Open();
-                Connected();
+                if (port == null)
+                {
+                    port = new SerialPort(selectedCOMM, 9600);
+                    port.DataReceived += port_DataRecieved;
+                    port.Open();
+                    Connected();
+                    messageBox.Text = "Connected to " + selectedCOMM + " successfully!";
+                }
+            }catch (Exception ex)
+            {
+                messageBox.Text = ex.Message;
             }
         }
 
@@ -280,6 +289,16 @@ namespace GUI_Serial_Interface
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedCOMM = comboBox1.SelectedText;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
