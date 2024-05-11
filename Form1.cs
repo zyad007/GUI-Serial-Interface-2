@@ -286,7 +286,7 @@ namespace GUI_Serial_Interface
 
             }
 
-            File.WriteAllText(csvFilePath + "/Export.csv", csv.ToString());
+            File.WriteAllText(csvFilePath, csv.ToString());
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -299,16 +299,19 @@ namespace GUI_Serial_Interface
 
         private void button6_Click(object sender, EventArgs e)
         {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                DialogResult result = fbd.ShowDialog();
 
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    string[] files = Directory.GetFiles(fbd.SelectedPath);
-                    ExportToCSV(fbd.SelectedPath);
-                }
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV file (*.csv)|*.csv| All Files (*.*)|*.*";
+            saveFileDialog.Title = "Export csv data";
+            var result = saveFileDialog.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                var fileName = saveFileDialog.FileName;
+                ExportToCSV(fileName);
             }
+
+
+
 
         }
 
