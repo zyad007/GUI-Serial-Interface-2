@@ -59,17 +59,7 @@ namespace GUI_Serial_Interface
         {
             return (float) Math.Floor(value * 100f) / 100f;
         }
-        private void UpdateTextField(string text)
-        {
-            if (textBox1.InvokeRequired)
-            {
-                textBox1.Invoke(new Action<string>(UpdateTextField), ((int)float.Parse(text)).ToString());
-            }
-            else
-            {
-                textBox1.Text = text;
-            }
-        }
+
         private void Finished()
         {
             port.WriteLine("f");
@@ -82,7 +72,6 @@ namespace GUI_Serial_Interface
             button4.Enabled = true;
             button5.Enabled = true;
             button6.Enabled = true;
-            textBox1.Enabled = true;
             comboBox1.Enabled = true;
         }
         private void Running()
@@ -95,7 +84,6 @@ namespace GUI_Serial_Interface
             button4.Enabled = false;
             button5.Enabled = false;
             button6.Enabled = false;
-            textBox1.Enabled = false;
             comboBox1.Enabled = false;
         }
         private void Connected()
@@ -105,8 +93,8 @@ namespace GUI_Serial_Interface
             button4.Enabled = true;
             button5.Enabled = true;
             button6.Enabled = false;
-            textBox1.Enabled = true;
             comboBox1.Enabled = true;
+            textBox2.Enabled = true;
         }
         private void NotConnected()
         {
@@ -116,7 +104,7 @@ namespace GUI_Serial_Interface
             button4.Enabled = false;
             button5.Enabled = false;
             button6.Enabled = false;
-            textBox1.Enabled = false;
+            textBox2.Enabled = false;
         }
         private void port_DataRecieved(object sender, SerialDataReceivedEventArgs e)
         {
@@ -148,7 +136,6 @@ namespace GUI_Serial_Interface
                 {
                     maxP = x * y * 0.001;
                 }
-                UpdateTextField(data[2]);
 
                 AddPointToChart(TrucatedValue(x), TrucatedValue(y));
 
@@ -176,7 +163,6 @@ namespace GUI_Serial_Interface
             else
             {
                 chart1.Series["c"].Points.Clear();
-                chart2.Series["p"].Points.Clear();
 
             }
         }
@@ -192,7 +178,6 @@ namespace GUI_Serial_Interface
             }else
             {
                 chart1.Series["c"].Points.AddXY(x, y/area);
-                chart2.Series["p"].Points.AddXY(x, x * y * 0.001);
 
             }
         }

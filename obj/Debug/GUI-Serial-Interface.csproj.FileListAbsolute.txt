@@ -19,3 +19,13 @@ C:\Users\Zyad\Source\Repos\GUI-Serial-Interface-1\obj\Debug\GUI-Serial-Interface
 C:\Users\Zyad\Source\Repos\GUI-Serial-Interface-1\bin\Debug\GUI-Serial-Interface.exe.config
 C:\Users\Zyad\Source\Repos\GUI-Serial-Interface-1\bin\Debug\GUI-Serial-Interface.exe
 C:\Users\Zyad\Source\Repos\GUI-Serial-Interface-1\bin\Debug\GUI-Serial-Interface.pdb
+C:\Users\Zyad\Source\Repos\GUI-Serial-Interface\obj\Debug\GUI-Serial-Interface.csproj.AssemblyReference.cache
+C:\Users\Zyad\Source\Repos\GUI-Serial-Interface\obj\Debug\GUI_Serial_Interface.Form1.resources
+C:\Users\Zyad\Source\Repos\GUI-Serial-Interface\obj\Debug\GUI_Serial_Interface.Properties.Resources.resources
+C:\Users\Zyad\Source\Repos\GUI-Serial-Interface\obj\Debug\GUI-Serial-Interface.csproj.GenerateResource.cache
+C:\Users\Zyad\Source\Repos\GUI-Serial-Interface\obj\Debug\GUI-Serial-Interface.csproj.CoreCompileInputs.cache
+C:\Users\Zyad\Source\Repos\GUI-Serial-Interface\obj\Debug\GUI-Serial-Interface.exe
+C:\Users\Zyad\Source\Repos\GUI-Serial-Interface\obj\Debug\GUI-Serial-Interface.pdb
+C:\Users\Zyad\Source\Repos\GUI-Serial-Interface\bin\Debug\GUI-Serial-Interface.exe.config
+C:\Users\Zyad\Source\Repos\GUI-Serial-Interface\bin\Debug\GUI-Serial-Interface.exe
+C:\Users\Zyad\Source\Repos\GUI-Serial-Interface\bin\Debug\GUI-Serial-Interface.pdb
