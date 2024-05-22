@@ -16,13 +16,9 @@ namespace GUI_Serial_Interface
     public partial class Form1 : Form
     {
         SerialPort port;
-        private float area = 10;
-        private float maxI = 0;
-        private float maxV = 0;
-        private double maxP = 0;
-        private List<float> iBuffer = new List<float>();
-        private List<float> vBuffer = new List<float>();
-        private List<double> pBuffer = new List<double>();
+        private List<float> i1Buffer = new List<float>();
+        private List<float> i2Buffer = new List<float>();
+        private List<float> dBuffer = new List<float>();
 
         private string selectedCOMM = "";
 
@@ -63,10 +59,6 @@ namespace GUI_Serial_Interface
         private void Finished()
         {
             port.WriteLine("f");
-            double v = maxP / (maxI * maxV * 0.001);
-            double e = (maxP * 10) / area;
-            F_Score.Text = TrucatedValue((float)v).ToString();
-            Eff.Text = TrucatedValue((float)(e * 100)).ToString() + "%";
             button2.Enabled = true;
             button3.Enabled = true;
             button4.Enabled = true;
@@ -76,9 +68,7 @@ namespace GUI_Serial_Interface
         }
         private void Running()
         {
-            ClearChart(0, 0);
-            F_Score.Text = String.Empty;
-            Eff.Text = String.Empty;
+            ClearChart(0, 0, 0);
             button2.Enabled = false;
             button3.Enabled = false;
             button4.Enabled = false;
@@ -121,27 +111,16 @@ namespace GUI_Serial_Interface
                     }));
                     return;
                 }
-                float x = float.Parse(data[0]);
-                float y = float.Parse(data[1]);
+                float i1 = float.Parse(data[0]);
+                float i2 = float.Parse(data[1]);
+                float d = float.Parse(data[2]);
 
-                if (x > maxV)
-                {
-                    maxV = x;
-                }
-                if (y > maxI)
-                {
-                    maxI = y;
-                }
-                if (x * y * 0.001 > maxP)
-                {
-                    maxP = x * y * 0.001;
-                }
+                AddPointToChart(TrucatedValue(i1), TrucatedValue(i2), TrucatedValue(d));
 
-                AddPointToChart(TrucatedValue(x), TrucatedValue(y));
+                i1Buffer.Add(i1);
+                i2Buffer.Add(i2);
+                dBuffer.Add(d);
 
-                vBuffer.Add(x);
-                iBuffer.Add(y);
-                pBuffer.Add(x * y * 0.001);
             }catch(Exception ex)
             {
                 this.Invoke(new MethodInvoker(delegate () {
@@ -149,36 +128,36 @@ namespace GUI_Serial_Interface
                 }));
             }
         }
-        delegate void SetChartCallBack(float x, float y);
-        private void ClearChart(float x, float y)
+        delegate void SetChartCallBack(float i1, float i2, float d);
+        private void ClearChart(float i1, float i2, float d)
         {
             if (chart1.InvokeRequired)
             {
                 var cb = new SetChartCallBack(ClearChart);
                 chart1.Invoke(cb, new Object[]
                 {
-                    x, y
+                    i1, i2, d
                 });
             }
             else
             {
                 chart1.Series["c"].Points.Clear();
-
+                chart2.Series["c"].Points.Clear();
             }
         }
-        private void AddPointToChart(float x, float y)
+        private void AddPointToChart(float i1, float i2, float d)
         {
             if(chart1.InvokeRequired)
             {
                 var cb = new SetChartCallBack(AddPointToChart);
                 chart1.Invoke(cb, new Object[]
                 {
-                    x, y
+                    i1, i2, d
                 });
             }else
             {
-                chart1.Series["c"].Points.AddXY(x, y/area);
-
+                chart1.Series["c"].Points.AddXY(i1, d);
+                chart2.Series["c"].Points.AddXY(i2, d);
             }
         }
         void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -214,21 +193,7 @@ namespace GUI_Serial_Interface
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if(port != null)
-            {
-                try
-                {
-                    area = float.Parse(textBox2.Text);
-                } catch(Exception)
-                {
 
-                }
-                if(area > 0)
-                {
-                    Running();
-                    port.WriteLine("a");
-                }
-            }
         }
 
         private void chart1_Click(object sender, EventArgs e)
@@ -259,15 +224,15 @@ namespace GUI_Serial_Interface
 
             var csv = new StringBuilder();
 
-            csv.AppendLine("V,I,P");
+            csv.AppendLine("D,I1,I2");
 
 
 
-            var dataCount = iBuffer.Count;
+            var dataCount = i1Buffer.Count;
 
             for (int i = 0; i < dataCount; i++)
             {
-                csv.AppendLine($"{vBuffer[i]}, {iBuffer[i]}, {pBuffer[i]}");
+                csv.AppendLine($"{dBuffer[i]}, {i1Buffer[i]}, {i2Buffer[i]}");
 
             }
 

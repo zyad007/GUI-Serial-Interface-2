@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
@@ -39,42 +42,42 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.F_Score = new System.Windows.Forms.Label();
-            this.Eff = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.messageBox = new System.Windows.Forms.TextBox();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.SuspendLayout();
             // 
             // chart1
             // 
-            chartArea2.AxisX.Minimum = 0D;
-            chartArea2.AxisX.Title = "Voltage (Volt)";
-            chartArea2.AxisY.Minimum = 0D;
-            chartArea2.AxisY.Title = "Current (mA/cm^2)";
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            this.chart1.Location = new System.Drawing.Point(21, 104);
-            this.chart1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            chartArea1.AxisX.Minimum = 0D;
+            chartArea1.AxisX.Title = "Distance (cm)";
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.AxisY.Title = "Current 1 (mA/cm^2)";
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Location = new System.Drawing.Point(21, 89);
+            this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.IsVisibleInLegend = false;
-            series2.Name = "c";
-            this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(700, 476);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.IsVisibleInLegend = false;
+            series1.Name = "c";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(518, 476);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
-            title2.Name = "Title1";
-            title2.Text = "Voltage vs Current Density";
-            this.chart1.Titles.Add(title2);
+            title1.Name = "Title1";
+            title1.Text = "Distance vs Current Density 1";
+            this.chart1.Titles.Add(title1);
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(229, 63);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(191, 21);
             this.button1.TabIndex = 2;
@@ -85,7 +88,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(229, 12);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(191, 21);
             this.button2.TabIndex = 3;
@@ -96,7 +99,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(229, 37);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(191, 22);
             this.button3.TabIndex = 4;
@@ -106,10 +109,10 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(579, 37);
-            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button4.Location = new System.Drawing.Point(835, 37);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(142, 22);
+            this.button4.Size = new System.Drawing.Size(115, 22);
             this.button4.TabIndex = 7;
             this.button4.Text = "On";
             this.button4.UseVisualStyleBackColor = true;
@@ -117,10 +120,10 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(424, 37);
-            this.button5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button5.Location = new System.Drawing.Point(835, 63);
+            this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(151, 22);
+            this.button5.Size = new System.Drawing.Size(115, 22);
             this.button5.TabIndex = 8;
             this.button5.Text = "Off";
             this.button5.UseVisualStyleBackColor = true;
@@ -128,10 +131,10 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(424, 63);
-            this.button6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button6.Location = new System.Drawing.Point(954, 38);
+            this.button6.Margin = new System.Windows.Forms.Padding(2);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(297, 21);
+            this.button6.Size = new System.Drawing.Size(122, 47);
             this.button6.TabIndex = 9;
             this.button6.Text = "Export";
             this.button6.UseVisualStyleBackColor = true;
@@ -139,40 +142,18 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(530, 13);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Location = new System.Drawing.Point(954, 15);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(191, 20);
+            this.textBox2.Size = new System.Drawing.Size(122, 20);
             this.textBox2.TabIndex = 11;
             this.textBox2.Text = "10";
-            // 
-            // F_Score
-            // 
-            this.F_Score.AutoSize = true;
-            this.F_Score.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.F_Score.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.F_Score.Location = new System.Drawing.Point(595, 18);
-            this.F_Score.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.F_Score.Name = "F_Score";
-            this.F_Score.Size = new System.Drawing.Size(0, 17);
-            this.F_Score.TabIndex = 13;
-            // 
-            // Eff
-            // 
-            this.Eff.AutoSize = true;
-            this.Eff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Eff.ForeColor = System.Drawing.Color.Green;
-            this.Eff.Location = new System.Drawing.Point(595, 57);
-            this.Eff.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Eff.Name = "Eff";
-            this.Eff.Size = new System.Drawing.Size(0, 17);
-            this.Eff.TabIndex = 15;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(425, 13);
+            this.label3.Location = new System.Drawing.Point(832, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 17);
             this.label3.TabIndex = 16;
@@ -197,16 +178,38 @@
             this.messageBox.TabIndex = 18;
             this.messageBox.Text = "Please Select COMM Port...";
             // 
+            // chart2
+            // 
+            chartArea2.AxisX.Minimum = 0D;
+            chartArea2.AxisX.Title = "Distance (cm)";
+            chartArea2.AxisY.Minimum = 0D;
+            chartArea2.AxisY.Title = "Current 2 (mA/cm^2)";
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            this.chart2.Location = new System.Drawing.Point(550, 89);
+            this.chart2.Margin = new System.Windows.Forms.Padding(2);
+            this.chart2.Name = "chart2";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.IsVisibleInLegend = false;
+            series2.Name = "c";
+            this.chart2.Series.Add(series2);
+            this.chart2.Size = new System.Drawing.Size(525, 476);
+            this.chart2.TabIndex = 19;
+            this.chart2.Text = "chart2";
+            title2.Name = "Title1";
+            title2.Text = "Distance vs Current Density 2";
+            this.chart2.Titles.Add(title2);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(740, 591);
+            this.ClientSize = new System.Drawing.Size(1099, 580);
+            this.Controls.Add(this.chart2);
             this.Controls.Add(this.messageBox);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.Eff);
-            this.Controls.Add(this.F_Score);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -215,12 +218,13 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chart1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Serial Interface";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,11 +240,10 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label F_Score;
-        private System.Windows.Forms.Label Eff;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox messageBox;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
     }
 }
 
